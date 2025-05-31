@@ -8,7 +8,11 @@ This driver uses kernel-mode printing features to print “Hello, World!”; the
 
 The first driver bug is a simple use-after-free bug which does not cause any crashes and is not detected by WinDbg, since the memory accesses are still physically valid, albeit logically invalid. The error can be detected using the Windows Driver Verifier. 
 
-The second driver bug is an invalid memory access, which triggers Bug Check 0x50. A pointer keeps incrementing, moving through memory addresses until it hits an unmapped virtual address with no PTE. It was quite fun to press g and cause the target to blue-screen even after WinDbg caused a break. 
+![useafterfree](https://github.com/user-attachments/assets/49998b91-52e0-47f9-93d3-3d9807f84e90)
+
+The second driver bug is an invalid memory access, which triggers Bug Check 0x50. A pointer keeps incrementing, moving through memory addresses until it hits an invalid non-paged virtual address. It was quite fun to press g and cause the target to blue-screen even after WinDbg caused a break. 
+
+![bugcheck](https://github.com/user-attachments/assets/129f2291-db62-4f27-8eee-2de5fecd18c9)
 
 ## Steps for deploying driver:
 Open workspace, attach kernel debugger, deploy driver.
